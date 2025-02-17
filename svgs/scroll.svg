@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 13.98 21">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        stroke-width: 0px;
+      }
+
+      .cls-1, .cls-4 {
+        fill: #01206a;
+      }
+
+      .cls-5 {
+        isolation: isolate;
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+
+      .cls-4 {
+        font-family: Poppins-Medium, Poppins;
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .cls-3 {
+        fill: #bdccd4;
+        mix-blend-mode: multiply;
+        opacity: .3;
+      }
+
+      .cls-6 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-2" x=".97" y="-102.66" width="260.51" height="54.85"/>
+    </clipPath>
+  </defs>
+  <g class="cls-5">
+    <g id="text">
+      <g class="cls-6">
+        <rect class="cls-3" x="10.58" y="-63.15" width="229.88" height="94.73" rx="5" ry="5"/>
+        <text class="cls-4" transform="translate(9.99 -76.78)"><tspan x="0" y="0">Contact</tspan><tspan x="0" y="38.4" xml:space="preserve">   Website</tspan><tspan x="0" y="57.6" xml:space="preserve">   Email</tspan><tspan x="0" y="76.8" xml:space="preserve">   Phone</tspan><tspan x="0" y="96" xml:space="preserve">   Office</tspan></text>
+      </g>
+      <path class="cls-1" d="m6.99,0C3.14,0,0,3.14,0,6.99v7.02C0,17.87,3.14,21,6.99,21s6.99-3.13,6.99-6.99v-7.02C13.98,3.14,10.85,0,6.99,0ZM1,6.99C1,3.86,3.42,1.28,6.49,1.03v2.43c-.81.22-1.42.96-1.42,1.85v1.92c0,.88.61,1.62,1.42,1.84v1.57H1v-3.65Zm11.98,7.02c0,3.31-2.68,5.99-5.99,5.99S1,17.32,1,14.01v-2.37h11.98v2.37Zm0-3.37h-5.49v-1.57c.82-.22,1.43-.96,1.43-1.84v-1.92c0-.89-.61-1.63-1.43-1.85V1.03c3.07.25,5.49,2.83,5.49,5.96v3.65Z"/>
+    </g>
+  </g>
+</svg>

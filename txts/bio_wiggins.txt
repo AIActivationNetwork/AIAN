@@ -1,0 +1,1 @@
+Chris Wiggins is an Associate Professor of Applied Mathematics and Systems Biology at Columbia University and Chief Data Scientist at The New York Times. He co-founded hackNY and is a founding member of the Data Science Institute. Wiggins holds a PhD from Princeton and co-authored "How Data Happened" (2023) and "Data Science in Context" (2022).

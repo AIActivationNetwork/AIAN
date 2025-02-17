@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Activation Network</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="svgs/logo.svg" alt="AI Activation Network Logo" id="logo">
+            <ul>
+                <li><a href="#about" id="nav-about">About</a></li>
+                <li><a href="#network" id="nav-network">Network</a></li>
+                <li><a href="#submit" id="nav-submit">Activate</a></li>
+                <li><a id="nav-getintouch">Get in Touch!</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="about" class="panel">
+            <h1 style="font-size: 2.5rem; margin-top: 50px;">Bridging Columbia’s AI Pioneers</h1>
+            <br>
+            <div class="intro-text">
+                <h2>
+                    Welcome to Columbia University's AI Activation Network (AIAN) – a dedicated platform for connecting faculty, students, and alumni engaged in the field of AI. This network serves as a hub for fostering collaboration, sharing, and communication.
+                </h2>
+            </div>
+            <br>
+            <div id="card-container-horizontal">
+                <div class="card-bio">
+                    <div class="profilePic">
+                        <img src="imgs/headshot_cluett.png">
+                    </div>
+                    <h1>Seth Cluett</h1>
+                    <div class=bio id="bio-cluett"></div>
+                </div>
+                <div class="card-bio">
+                    <div class="profilePic">
+                        <img src="imgs/headshot_hansen.jpg">
+                    </div>
+                    <h1>Mark Hansen</h1>
+                    <div class=bio id="bio-hansen"></div>
+                </div>
+                <div class="card-bio">
+                    <div class="profilePic">
+                        <img src="imgs/headshot_kurgan.jpg" style="width: 230px;">
+                    </div>
+                    <h1>Laura Kurgan</h1>
+                    <div class=bio id="bio-laura"></div>
+                </div>
+                <div class="card-bio">
+                    <div class="profilePic">
+                        <img src="imgs/headshot_wiggins.jpg">
+                    </div>
+                    <h1>Chris Wiggins</h1>
+                    <div class=bio id="bio-wiggins"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="network" class="panel">
+            <div id="note">
+                <p>Notes</p>
+                <p>clustering? another half-opaque layer for grouping?</p>
+            </div>
+            <svg id="d3-canvas"></svg>
+            <div id="guide-container">
+                <div class="guide-box">
+                    <img src="svgs/scroll.svg" alt="Scroll to zoom" class="guide-icon">
+                    <h3><b>Scroll</b> to zoom</h3>
+                </div>
+                <div class="guide-box">
+                    <img src="svgs/lmb.svg" alt="Scroll to zoom" class="guide-icon">
+                    <h3><b>Drag</b> to pan</h3>
+                </div>
+                <div class="guide-box">
+                    <img src="svgs/lmb.svg" alt="Scroll to zoom" class="guide-icon">
+                    <h3><b>Click</b> nodes to inspect</h3>
+                </div>
+            </div>
+
+            <div id="controls">
+                <button id="guide">?</button>
+                <button id="zoomIn">+</button>
+                <button id="zoomOut">-</button>
+            </div>
+
+            <div id="legend-container" style="bottom: 155px;">
+                <div class="legend-box" style="border-radius: 20px 20px 0 0;">
+                    <div class="legend-node"></div>
+                    <div class="legend">
+                        Faculty
+                    </div>
+                    <div class="toggle-container">
+                        <label class="toggle">
+                            <input type="checkbox" class="toggle-input" id="toggle-faculty" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>                      
+                </div>
+                <div class="legend-box">
+                    <div class="legend-node" style="background-color: #059292;"></div>
+                    <div class="legend">
+                        Student
+                    </div>
+                    <div class="toggle-container">
+                        <label class="toggle">
+                            <input type="checkbox" class="toggle-input" id="toggle-student" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>                      
+                </div>
+                <div class="legend-box" style="border-radius: 0 0 20px 20px;">
+                    <div class="legend-node" style="background-color: #782483;"></div>
+                    <div class="legend">
+                        Alumnus
+                    </div>
+                    <div class="toggle-container">
+                        <label class="toggle">
+                            <input type="checkbox" class="toggle-input" id="toggle-alumnus" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>                      
+                </div>
+            </div>
+            <div id="legend-container">
+                <div class="legend-box" style="border-radius: 20px 20px 0 0;">
+                    <div class="legend-line-A"></div>
+                    <div class="legend">
+                        Administration
+                    </div>
+                    <div class="toggle-container">
+                        <label class="toggle">
+                            <input type="checkbox" class="toggle-input" id="toggle-admin" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>                      
+                </div>
+                <div class="legend-box">
+                    <div class="legend-line-B"></div>
+                    <div class="legend">
+                        Collaboration
+                    </div>
+                    <div class="toggle-container">
+                        <label class="toggle">
+                            <input type="checkbox" class="toggle-input" id="toggle-collab" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>                      
+                </div>
+                <div class="legend-box" style="border-radius: 0 0 20px 20px;">
+                    <div class="legend-line-C"></div>
+                    <div class="legend">
+                        Mentorship
+                    </div>
+                    <div class="toggle-container">
+                        <label class="toggle">
+                            <input type="checkbox" class="toggle-input" id="toggle-mentor" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>                      
+                </div>
+                
+            </div>
+            <div id="card-container">
+                <div class="card search-container">
+                    <input type="text" id="searchBar" placeholder="Search names, events..." />
+                    <button onclick="performSearch()" class="search-button">
+                        <img src="svgs/search.svg" alt="Search" />
+                    </button>                    
+                </div>
+                <div id="searchResults"></div>
+
+                <div class="card" id="cardName">
+                    <h1 id="node-name">Name</h1>
+                    <h2 id="node-title">Title</h2>
+                    <div class="tag-container">
+                        <div class="tag" id="node-role" style="background-color: #c83662; color: white;">
+                            Role
+                        </div>
+                        <div class="tag" id="node-connections" style="background-color: #b1d6f1;">Connections</div>
+                    </div>
+                </div>
+                <div class="card" id="cardInfo">
+                    <div class="tab-container">
+                        <div class="tab" id="tabBio">Bio</div>
+                        <div class="tab" id="tabEvents">Events</div>
+                        <div class="tab" id="tabConnections">Connections</div>
+                    </div>
+                    <div class="info-container" id="containerBio">
+                        <div class="infoTitle">
+                            Columbia University
+                            <div class="panelToggle" id="panelToggleColumbia">
+                                -
+                            </div>
+                        </div>
+                        <div class="panelContent" id="panelContentColumbia">
+                            <p>GSAPP</p>
+                            <p>Org/lab/center</p>
+                        </div>
+
+                        <div class="infoTitle">
+                            AI
+                            <div class="panelToggle" id="panelToggleAI">
+                                -
+                            </div>
+                        </div>
+                        <div class="panelContent" id="panelContentAI">
+                            <p>Affiliations</p>
+                            <p>Projects</p>
+                            <p>Tools</p>
+                            <p>Awards</p>
+                        </div>
+
+                        <div class="infoTitle">
+                            Contact Info
+                            <div class="panelToggle" id="panelToggleContact">
+                                -
+                            </div>
+                        </div>
+                        <div class="panelContent" id="panelContentContact">
+                            <p>Website: ljk33@columbia.edu</p>
+                            <p>Social Media</p>
+                            <p>Phone</p>
+                            <p>Email</p>
+                            <p>Office</p>
+                        </div>
+                    </div>
+                    <div class="info-container" id="containerEvents">
+                        <div class="infoTitle">
+                            Attended AI Events
+                            <div class="panelToggle" id="panelToggleColumbia">
+                                -
+                            </div>
+                        </div>
+                        <div class="panelContent" id="panelContentColumbia">
+                            <p>Event 1</p>
+                            <p>Event 2</p>
+                            <p>Event 3</p>
+                            <p>Event 4</p>
+                            <p>Event 5</p>
+                            <p>Event 6</p>
+                        </div>
+
+                        <div class="infoTitle">
+                            Hosted AI Events
+                            <div class="panelToggle" id="panelToggleAI">
+                                -
+                            </div>
+                        </div>
+                        <div class="panelContent" id="panelContentAI">
+                            <p>Event 1</p>
+                            <p>Event 2</p>
+                            <p>Event 3</p>
+                            <p>Event 4</p>
+                        </div>
+                    </div>
+                    <div class="info-container" id="containerConnections">
+                        <div class="infoTitle">
+                            People Connections
+                            <div class="panelToggle" id="panelToggleColumbia">
+                                -
+                            </div>
+                        </div>
+                        <div class="panelContent" id="panelContentColumbia">
+                            <p>Person 1</p>
+                            <p>Person 2</p>
+                            <p>Person 3</p>
+                            <p>Person 4</p>
+                            <p>Person 5</p>
+                            <p>Person 6</p>
+                        </div>
+
+                        <div class="infoTitle">
+                            Org Connections
+                            <div class="panelToggle" id="panelToggleAI">
+                                -
+                            </div>
+                        </div>
+                        <div class="panelContent" id="panelContentAI">
+                            <p>Org 1</p>
+                            <p>Org 2</p>
+                            <p>Org 3</p>
+                            <p>Org 4</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="submit" class="panel">
+            <h1 style="font-size: 2.5rem;">Activate Your CU Profile Now!</h1>
+            <br>
+            <div id="activate-container">
+                <div class="activate">
+                    <div class="activate-text">Create</div>
+                    a new node
+                </div>
+                <div style="margin: 2vw; color: #01206a;">or</div>
+                <div class="activate">
+                    <div class="activate-text">Edit</div>
+                    an existing node
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 AI Activation Network</p>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
+
