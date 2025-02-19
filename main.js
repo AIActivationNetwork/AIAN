@@ -45,7 +45,12 @@ fetch('txts/bio_hansen.txt')
         document.getElementById('bio-hansen').textContent = text;
     })
     .catch(error => console.error('Error loading the file:', error));
-
+fetch('txts/bio_misra.txt')
+    .then(response => response.text())
+    .then(text => {
+        document.getElementById('bio-misra').textContent = text;
+    })
+    .catch(error => console.error('Error loading the file:', error));
 
 
 
