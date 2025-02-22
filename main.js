@@ -231,6 +231,7 @@ guide.addEventListener('mouseleave', () => {
 
 
 
+
 // Nodes--------------------------------------------------------
 
 
@@ -244,7 +245,11 @@ Promise.all([
     id: d.ID,
     name: d.Name,
     role: d.Role,
-    title: d.Title
+    title: d.Title,
+    school: d.School,
+    org: d.Org,
+    aiorg: d.AiOrg,
+    email: d.Email,
   }));
 
   // Map linksData to the required format
@@ -254,10 +259,41 @@ Promise.all([
     type: d.Type
   }));
 
-  // Select SVG and set dimensions
+  // Define the initial zoom level and scale
+  let zoomLevel = 1; // Initial zoom level
+  const zoomStep = 1; // How much to zoom in/out per click
+  const minZoom = 0.3; // Minimum zoom level
+  const maxZoom = 4;   // Maximum zoom level
+
+  // Define the zoom behavior
+  const zoom = d3.zoom()
+    .scaleExtent([minZoom, maxZoom]) // Set zoom limits
+    .on("zoom", (event) => {
+      g.attr("transform", event.transform); // Apply the zoom transformation to the canvas group
+      zoomLevel = event.transform.k; // Sync zoomLevel with the current scale
+    });
+
+  // Apply the zoom behavior to the SVG
   const svg = d3.select("svg")
     .attr("width", window.innerWidth)
-    .attr("height", window.innerHeight);
+    .attr("height", window.innerHeight)
+    .call(zoom)
+    .on("wheel.zoom", null); // Disable zoom via mouse wheel, but keep drag/pan
+
+  // Zoom in button handler
+  document.getElementById("zoomIn").addEventListener("click", () => {
+    zoomLevel = Math.min(zoomLevel + zoomStep, maxZoom); // Increment zoom level
+    svg.transition().duration(200) // Smooth transition
+      .call(zoom.scaleTo, zoomLevel); // Programmatically update zoom level
+  });
+
+  // Zoom out button handler
+  document.getElementById("zoomOut").addEventListener("click", () => {
+    zoomLevel = Math.max(zoomLevel - zoomStep, minZoom); // Decrement zoom level
+    svg.transition().duration(200) // Smooth transition
+      .call(zoom.scaleTo, zoomLevel); // Programmatically update zoom level
+  });
+
 
   const width = +svg.attr("width");
   const height = +svg.attr("height");
@@ -336,14 +372,16 @@ node.append("text")
   .style("font-family", "'Roboto Condensed', sans-serif")
   .style("font-weight", "bold")
   .html(d => {
-    // Split the name at the first space
+    // Split the name by spaces into an array of name parts
     const nameParts = d.name.split(" ");
-    const firstName = nameParts[0];
-    const lastName = nameParts.slice(1).join(" ");  // In case there are multiple parts after the first space
 
-    // Return the first name on the first line, and the rest of the name on the second line
-    return `${firstName}<tspan x="0" dy="1.0em">${lastName}</tspan>`;
+    // Map over the name parts and create a <tspan> for each part
+    return nameParts.map((part, index) => {
+      // For each name part, set dy for line spacing
+      return `<tspan x="0" dy="${index === 0 ? 0 : 1.0}em">${part}</tspan>`;
+    }).join("");  // Join all <tspan> elements into a single string
   });
+
 
 
   // Create a tooltip div and style it
@@ -588,6 +626,10 @@ node.append("text")
     document.getElementById("node-name").innerText = d.name;
     document.getElementById("node-role").innerText = d.role;
     document.getElementById("node-title").innerText = d.title;
+    document.getElementById("node-school").innerText = d.school;
+    document.getElementById("node-org").innerText = d.org;
+    document.getElementById("node-aiorg").innerText = d.aiorg;
+    document.getElementById("node-email").innerText = d.email;
 
 
 
@@ -648,36 +690,4 @@ node.append("text")
         d.fy = null;
       });
   }
-
-  // Define the initial zoom level and scale
-  let zoomLevel = 1; // Initial zoom level
-  const zoomStep = 1; // How much to zoom in/out per click
-  const minZoom = 0.3; // Minimum zoom level
-  const maxZoom = 4;   // Maximum zoom level
-
-  // Define the zoom behavior
-  const zoom = d3.zoom()
-    .scaleExtent([minZoom, maxZoom]) // Set zoom limits
-    .on("zoom", (event) => {
-      g.attr("transform", event.transform); // Apply the zoom transformation to the canvas group
-      zoomLevel = event.transform.k; // Sync zoomLevel with the current scale
-    });
-
-  // Apply the zoom behavior to the SVG
-  svg.call(zoom);
-
-  // Zoom in button handler
-  document.getElementById("zoomIn").addEventListener("click", () => {
-    zoomLevel = Math.min(zoomLevel + zoomStep, maxZoom); // Increment zoom level
-    svg.transition().duration(200) // Smooth transition
-      .call(zoom.scaleTo, zoomLevel); // Programmatically update zoom level
-  });
-
-  // Zoom out button handler
-  document.getElementById("zoomOut").addEventListener("click", () => {
-    zoomLevel = Math.max(zoomLevel - zoomStep, minZoom); // Decrement zoom level
-    svg.transition().duration(200) // Smooth transition
-      .call(zoom.scaleTo, zoomLevel); // Programmatically update zoom level
-  });
-
 });

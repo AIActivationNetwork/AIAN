@@ -20,9 +20,19 @@ header {
     position: absolute;
     width: 100vw;
     z-index: 1001;
+    bottom: 45px;
 }
 a {
     text-decoration: none;
+}
+#gradient {
+    position: absolute;
+    background: linear-gradient(to top, #ffffff, transparent);
+    width: 100vw;
+    height: 220px;
+    z-index: 1;
+    pointer-events: none;
+    bottom: 0;
 }
 #d3-canvas {
     cursor: grab;
@@ -51,31 +61,36 @@ a {
 
 /* Header----------------------------- */
 nav {
+    width: 350px;
+    margin: 0 auto;
     display: flex;
     background-color: #01206a;
+    border-radius: 20px;
     color: #fff;
-    padding: 25px;
+    padding: 10px;
+    padding-left: 3px;
+    padding-right: 3px;
     text-align: center;
     align-items: center;
-    justify-content: center;
-    position: relative;
+    justify-content: space-between;
 }
 nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 nav li {
     display: inline-block;
-    margin-left: 10px;
-    margin-right: 10px;
 }
 nav a {
     color: #fff;
     background-color: #01206a;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
-    padding: 4px;
+    padding: 5px;
     padding-left: 20px;
     padding-right: 20px;
     border-radius: 30px;
@@ -89,7 +104,7 @@ nav a.active {
     color: #01206a;
 }
 nav a:hover {
-    border: solid 2px white;
+    background-color: rgba(255, 255, 255, 0.3);
 }
 #nav-getintouch {
     color: #f6d887;
@@ -128,15 +143,38 @@ main {
     font-size: 2rem;
 }
 #about {
-    margin-top: 69px;
-    height: calc(100vh - 69px) !important;
+    height: 100vh;
     display: flex;           
     flex-direction: column;
     overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+.chapter {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 100vh;
+    scroll-snap-align: start; 
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
 }
 .intro-text {
     min-width: 600px;
     width: 40vw;
+}
+#intro-mission-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 70vw;
+    margin-bottom: 100px;
+}
+@media (max-width: 900px) {
+    #intro-mission-container {
+        flex-direction: column;
+        width: 70%;  /* Optional: adjust the width to 100% to use available space */
+    }
 }
 .intro-mission {
     background-color: #f1f1f1;
@@ -144,21 +182,26 @@ main {
     padding: 15px;
     padding-left: 20px;
     padding-right: 20px;
-    border-radius: 30px;
+    border-radius: 10px;
 }
 #submit {
     justify-content: center;
 }
 footer {
     display: flex;
-    position: absolute;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
-    bottom: 15px;
-    left: 45px;
-    background-color: white;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 12px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #01206a;
+    font-size: 0.8rem;
+    padding: 10px 0;
+    z-index: 1000;
 }
+
 
 
 #card-container {
@@ -175,7 +218,7 @@ footer {
     gap: 10px;
 }
 .card, .card-bio {
-    border-radius: 20px;
+    border-radius: 10px;
     margin-top: 10px;
     width: 300px;
     backdrop-filter: blur(15px);
@@ -191,7 +234,7 @@ footer {
     padding: 10px;
     margin-bottom: 100px;
     min-width: 200px;
-    width: 260px;
+    width: 240px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1), 0 6px 20px 0 rgba(0,0,0,0.07);
 }
 
@@ -279,6 +322,9 @@ footer {
     z-index: 3000;
     margin-bottom: 15px;
 }
+#zoomIn, #zoomOut {
+    z-index: 1000;
+}
 #zoomIn {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px; 
@@ -301,24 +347,24 @@ footer {
     justify-content: flex-end; 
     align-items: flex-end; 
     bottom: 45px;
-    left: calc(200vw - 310px);
+    left: calc(200vw - 280px);
     border: 0px solid #01206a;
-    border-radius: 20px;
+    border-radius: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
     background-color: rgba(223, 228, 232, 0.85);
     backdrop-filter: blur(15px);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 .legend-box {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 230px;
-    /* background-color: #ebf0f2; */
+    width: 200px;
     padding: 15px;
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     justify-content: space-between;
 }
 .legend-node {
@@ -344,7 +390,7 @@ footer {
 .legend {
     position: absolute;
     left: 60px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #01206a;
     text-align: left;
@@ -430,7 +476,7 @@ p {
     font-size: 0.9rem;
     font-weight: 500;
     color: #01206a;
-    margin: 0 auto;
+    margin: 0;
 }
 .bio {
     font-size: 0.9rem;
@@ -498,13 +544,24 @@ button {
 }
 
 
-#node-name, #node-title {
-    margin-left: 25px;
+.node-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
 }
+.node-text {
+    font-weight: 300;
+}
+#cardName {
+    width: 250px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
 .tag-container {
     display: flex; 
     gap: 10px;
-    padding-left: 25px;
     margin-top: 7px;
     margin-bottom: 15px;
 }
@@ -601,6 +658,8 @@ button {
     background-color: #368edd;
 }
 .panelContent {
+    display: flex;
+    flex-direction: column;
     background-color: rgba(189, 205, 212, 0.3);
     mix-blend-mode: multiply;
     margin-left: 35px;
@@ -610,6 +669,7 @@ button {
     position:relative;
     padding: 7px;
     padding-left: 15px;
+    gap: 8px;
     transition: max-height 0.3s ease;
     overflow: hidden;
 }
