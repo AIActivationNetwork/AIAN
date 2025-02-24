@@ -56,20 +56,23 @@ fetch('txts/bio_misra.txt')
 
 // Panel collapse
 document.getElementById("panelToggleColumbia").addEventListener("click", function () {
-    // Toggle the visibility of the content
-    const panelContent = document.getElementById("panelContentColumbia");
-    panelContent.classList.toggle("hidden");
+  const panelContent = document.getElementById("panelContentColumbia");
+  panelContent.classList.toggle("hidden");
+  this.innerText = panelContent.classList.contains("hidden") ? "+" : "-";
 });
+
 document.getElementById("panelToggleAI").addEventListener("click", function () {
-    // Toggle the visibility of the content
-    const panelContent = document.getElementById("panelContentAI");
-    panelContent.classList.toggle("hidden");
+  const panelContent = document.getElementById("panelContentAI");
+  panelContent.classList.toggle("hidden");
+  this.innerText = panelContent.classList.contains("hidden") ? "+" : "-";
 });
+
 document.getElementById("panelToggleContact").addEventListener("click", function () {
-    // Toggle the visibility of the content
-    const panelContent = document.getElementById("panelContentContact");
-    panelContent.classList.toggle("hidden");
+  const panelContent = document.getElementById("panelContentContact");
+  panelContent.classList.toggle("hidden");
+  this.innerText = panelContent.classList.contains("hidden") ? "+" : "-";
 });
+
 
 
 
@@ -249,7 +252,13 @@ Promise.all([
     school: d.School,
     org: d.Org,
     aiorg: d.AiOrg,
+    website: d.Website,
+    phone: d.Phone,
     email: d.Email,
+    office: d.Office,
+    event: d.Event,
+    linkedin: d.LinkedIn,
+    bluesky: d.Bluesky,
   }));
 
   // Map linksData to the required format
@@ -403,7 +412,7 @@ node.append("text")
     tooltip.style("visibility", "visible")
       .html(`
         <strong>${d.title}</strong><br>
-        <em>Other info here</em>
+        <em>${d.school}</em>
       `);
 
     // Hover effect
@@ -600,6 +609,9 @@ node.append("text")
       .duration(200)
       .style("font-size", "30px");
 
+    let nodeEvents = []; // Store event names of the selected node
+    let connectedNodeNames = []; // Store names of connected nodes
+
     // Highlight directly connected nodes and make links thicker
     g.selectAll(".link")
       .filter(link => link.source === d || link.target === d)
@@ -615,6 +627,8 @@ node.append("text")
       ))
       .each(function(nodeData) {
         highlightedNodes.push(this); // Store highlighted nodes
+        highlightedNodes.push(this); // Store highlighted nodes
+        connectedNodeNames.push(nodeData.name); // Store connected node names
 
         d3.select(this).select("circle")
           .transition()
@@ -625,12 +639,91 @@ node.append("text")
     // Update HTML div with node's info
     document.getElementById("node-name").innerText = d.name;
     document.getElementById("node-role").innerText = d.role;
-    document.getElementById("node-title").innerText = d.title;
+    document.getElementById("node-title").innerHTML = d.title.replace(/;/g, ";<br>");
     document.getElementById("node-school").innerText = d.school;
     document.getElementById("node-org").innerText = d.org;
     document.getElementById("node-aiorg").innerText = d.aiorg;
-    document.getElementById("node-email").innerText = d.email;
+    document.getElementById("node-phone").innerText = d.phone;
+    document.getElementById("node-office").innerText = d.office;
 
+    // Dynamically create and insert website link
+    const websiteLink = document.createElement('a');
+    websiteLink.href = d.website;
+    websiteLink.target = '_blank';
+    websiteLink.innerText = d.website;
+    document.getElementById("node-website").innerHTML = ''; // Clear existing content
+    document.getElementById("node-website").appendChild(websiteLink);
+
+    // Dynamically create and insert email link
+    const emailLink = document.createElement('a');
+    emailLink.href = `mailto:${d.email}`;
+    emailLink.innerText = d.email;
+    document.getElementById("node-email").innerHTML = ''; // Clear existing content
+    document.getElementById("node-email").appendChild(emailLink);
+
+    // Dynamically create and insert LinkedIn link
+    if (d.linkedin) {
+      const linkedinLink = document.createElement('a');
+      linkedinLink.href = d.linkedin;
+      linkedinLink.target = '_blank';
+      const linkedinIcon = document.createElement('img');
+      linkedinIcon.classList.add('node-icon');
+      linkedinIcon.src = 'svgs/icon_linkedin.svg';
+      linkedinIcon.alt = 'LinkedIn';
+      linkedinLink.appendChild(linkedinIcon);
+      const linkedinText = document.createElement('span');
+      linkedinText.innerText = 'LinkedIn';
+      linkedinLink.appendChild(linkedinText);
+      document.getElementById("node-linkedin").innerHTML = ''; // Clear existing content
+      document.getElementById("node-linkedin").appendChild(linkedinLink);
+    }
+
+    // Dynamically create and insert LinkedIn link
+    if (d.linkedin) {
+      const linkedinLink = document.createElement('a');
+      linkedinLink.href = d.linkedin;
+      linkedinLink.target = '_blank';
+      const linkedinIcon = document.createElement('img');
+      linkedinIcon.classList.add('node-icon');
+      linkedinIcon.src = 'svgs/icon_linkedin.svg';
+      linkedinIcon.alt = 'LinkedIn';
+      linkedinLink.appendChild(linkedinIcon);
+      const linkedinText = document.createElement('span');
+      linkedinText.innerText = 'LinkedIn';
+      linkedinLink.appendChild(linkedinText);
+      document.getElementById("node-linkedin").innerHTML = ''; // Clear existing content
+      document.getElementById("node-linkedin").appendChild(linkedinLink);
+    } else {
+      document.getElementById("node-linkedin").innerHTML = ''; // Clear LinkedIn if no value
+    }
+
+    // Dynamically create and insert Bluesky link
+    if (d.bluesky) {
+      const blueskyLink = document.createElement('a');
+      blueskyLink.href = d.bluesky;
+      blueskyLink.target = '_blank';
+      const blueskyIcon = document.createElement('img');
+      blueskyIcon.classList.add('node-icon');
+      blueskyIcon.src = 'svgs/icon_bluesky.svg';
+      blueskyIcon.alt = 'Bluesky';
+      blueskyLink.appendChild(blueskyIcon);
+      const blueskyText = document.createElement('span');
+      blueskyText.innerText = 'Bluesky';
+      blueskyLink.appendChild(blueskyText);
+      document.getElementById("node-bluesky").innerHTML = ''; // Clear existing content
+      document.getElementById("node-bluesky").appendChild(blueskyLink);
+    } else {
+      document.getElementById("node-bluesky").innerHTML = ''; // Clear Bluesky if no value
+    }
+
+    // Update event content with fallback if empty
+    document.getElementById("panelContentEvents").innerHTML = 
+      [d.event, ...nodeEvents].filter(event => event).join("<br>") || 
+      '<a href="https://ai.columbia.edu/events" target="_blank"><u>Explore more AI events!</u></a>';
+
+    // Update connections content with fallback if empty
+    document.getElementById("panelContentConnections").innerHTML = 
+      connectedNodeNames.length > 0 ? connectedNodeNames.join("<br>") : "No direct connections";
 
 
 
@@ -642,6 +735,9 @@ node.append("text")
 
     // Display the count in the HTML element
     document.getElementById("node-connections").innerText = `${nodeConnections} Connection${nodeConnections !== 1 ? 's' : ''}`;
+
+    // Activate badges based on node connections
+    updateBadges(nodeConnections);
 
       // Change the background color of the role div based on the role
     const roleDiv = document.getElementById("node-role");
@@ -661,6 +757,28 @@ node.append("text")
       .style("stroke", "#01206a")
       .style("stroke-width", 6);
   });
+
+    // Function to activate badges based on nodeConnections
+  function updateBadges(numLinks) {
+    // Reset all badges to inactive
+    document.querySelectorAll('.badge').forEach(badge => badge.classList.remove('active'));
+
+    // Activate badges based on the number of links
+    if (numLinks >= 1) {
+      document.getElementById('badge-connections-01').classList.add('active');
+    }
+    if (numLinks >= 5) {
+      document.getElementById('badge-connections-02').classList.add('active');
+    }
+    if (numLinks >= 10) {
+      document.getElementById('badge-connections-03').classList.add('active');
+    }
+    if (numLinks >= 20) {
+      document.getElementById('badge-connections-04').classList.add('active');
+    }
+    if (numLinks >= 35) {
+      document.getElementById('badge-connections-05').classList.add('active');
+    }}
 
   // Apply forces
   simulation.on("tick", () => {
@@ -691,3 +809,35 @@ node.append("text")
       });
   }
 });
+
+
+
+
+// Badge info------------------------------------------
+// Select all badges and attach event listeners for tooltip
+const badges = document.querySelectorAll('.badge');
+
+badges.forEach(badge => {
+    const tooltipText = badge.getAttribute('data-tooltip');
+    const tooltip = document.createElement('div');
+    tooltip.classList.add('tooltip');
+    tooltip.textContent = tooltipText;
+
+    // Append the tooltip to the body
+    document.body.appendChild(tooltip);
+
+    badge.addEventListener('mouseenter', () => {
+        // Show tooltip and position it
+        tooltip.classList.add('tooltip-visible');
+        const badgeRect = badge.getBoundingClientRect();
+        tooltip.style.left = `${badgeRect.left + window.scrollX}px`;
+        tooltip.style.top = `${badgeRect.top + window.scrollY - tooltip.offsetHeight}px`;
+    });
+
+    badge.addEventListener('mouseleave', () => {
+        // Hide tooltip
+        tooltip.classList.remove('tooltip-visible');
+    });
+});
+
+
