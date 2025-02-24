@@ -559,6 +559,8 @@ button {
 }
 .node-text {
     font-weight: 300;
+    overflow-wrap: break-word !important;
+    width: 100%;
 }
 .node-icon {
     width: 12px;
@@ -688,6 +690,7 @@ button {
     gap: 8px;
     transition: max-height 0.3s ease;
     overflow: visible !important;
+    overflow-x: hidden !important;
 }
 .panelContent.hidden {
     max-height: 0; 
