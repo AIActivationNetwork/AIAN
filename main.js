@@ -343,7 +343,7 @@ const link = g.selectAll(".link")
   .attr("class", "link")
   .style("stroke", "#01206a")
   .style("stroke-width", 2)
-  .style("opacity", 0.5)
+  .style("opacity", 0.2)
   .style("stroke-dasharray", d => {
     if (d.type === "Mentorship") {
       return "5,5"; // Dotted line for Mentorship
@@ -495,7 +495,7 @@ node.append("text")
           if (shouldShow) {
               linkElement.style("display", "block")
                   .transition().duration(transitionTime)
-                  .style("opacity", activeLinks.has(d) ? 1 : 0.5); // Preserve active links
+                  .style("opacity", activeLinks.has(d) ? 1 : 0.2); // Preserve active links
           } else {
               linkElement.transition().duration(transitionTime)
                   .style("opacity", 0)
@@ -586,7 +586,7 @@ node.append("text")
       .duration(200)
       .style("stroke", "#01206a")
       .style("stroke-width", 2)
-      .style("opacity", 0.5); // Reset link thickness
+      .style("opacity", 0.2); // Reset link opacity
 
     // Reset all node sizes and colors
     g.selectAll(".node").select("circle")
