@@ -652,7 +652,7 @@ button {
     justify-content: space-between;
 }
 .info-container {
-    height: 350px;
+    height: 250px;
     overflow-y: scroll;
     margin-top: 20px;
     margin-right: 25px;
