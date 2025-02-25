@@ -822,7 +822,7 @@ button {
 }
 #activate-text-edit {
     color: #b0b3b5;
-    pointer-events: none;
+
 }
 #captcha-container {
     display: flex;
