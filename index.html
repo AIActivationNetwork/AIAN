@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Activation Network</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,6 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="styles.css">
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 <body>
     <header>
@@ -357,6 +360,24 @@
             </div>
         </section>
         <section id="submit" class="panel">
+
+            <h2>Access the Google Form</h2>
+            <p>Complete the CAPTCHA to reveal the form link.</p>
+        
+            <form onsubmit="return showFormLink()">
+                <div class="g-recaptcha" data-sitekey="6Levs-IqAAAAAJ1tYRDhvWeftZgHTRAZU9ERwJG_"></div>
+                <br>
+                <button type="submit">Verify</button>
+            </form>
+        
+            <p id="form-link" style="display: none;">
+                ✅ Verified! Access the form: 
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdVX2YRFRUhLdlP23PHrq5563SzSUGyXHngz90ZuyRp0dyqfA/viewform?usp=preview" target="_blank">
+                    Google Form
+                </a>
+            </p>
+
+
             <h1 style="font-size: 2.5rem;">Activate Your CU Profile Now!</h1>
             <br>
             <div id="activate-container">

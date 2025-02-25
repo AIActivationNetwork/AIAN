@@ -20,6 +20,20 @@ navLinks.forEach((link) => {
 });
 
 
+// reCAPTCHA------------------------------------------------
+function showFormLink() {
+  var response = grecaptcha.getResponse();
+  if (response.length === 0) {
+      alert("Please complete the CAPTCHA.");
+      return false;
+  } else {
+      document.getElementById("form-link").style.display = "block";
+      return false; // Prevent form submission
+  }
+}
+
+
+
 // Bio text link
 fetch('txts/bio_cluett.txt')
     .then(response => response.text())
