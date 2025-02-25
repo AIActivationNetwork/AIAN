@@ -785,7 +785,7 @@ button {
 #activate-container {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: top;
 }
 .activate, .activate-border {
     text-align: center;
