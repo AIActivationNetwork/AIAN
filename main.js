@@ -33,6 +33,23 @@ function showFormLink() {
 }
 
 
+// Bio card toggle-------------------------------------------
+document.getElementById("card-toggle").addEventListener("click", function() {
+  const cardContainer = document.getElementById("card-collapsible");
+  const toggleButton = document.getElementById("card-toggle");
+
+  if (cardContainer.classList.contains("collapsed")) {
+      cardContainer.classList.remove("collapsed");
+      toggleButton.textContent = "collapse";
+  } else {
+      cardContainer.classList.add("collapsed");
+      toggleButton.textContent = "expand";
+  }
+});
+
+
+
+
 
 // Bio text link
 fetch('txts/bio_cluett.txt')
@@ -417,11 +434,10 @@ node.append("text")
     .style("padding", "10px")
     .style("border-radius", "3px")
     .style("box-shadow", "0px 4px 6px rgba(0, 0, 0, 0.1)")
-    .style("z-index", "10000");  // Ensure it's on top
+    .style("z-index", "999999"); 
 
   // Add hover interaction with tooltip events
   node.on("mouseover", function(event, d) {
-
     // Tooltip functionality - only show it when mouseover
     tooltip.style("visibility", "visible")
       .html(`
