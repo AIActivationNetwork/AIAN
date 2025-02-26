@@ -33,6 +33,30 @@ function showFormLink() {
 }
 
 
+
+// Card collapsed on load on mobile devices------------------
+// Function to toggle the collapsed class based on screen width
+function toggleCollapsedClass() {
+  const cardCollapsible = document.getElementById('card-collapsible');
+  const cardToggle = document.getElementById('card-toggle');
+
+  if (window.innerWidth < 900) {
+      cardCollapsible.classList.add('collapsed');
+      cardToggle.textContent = "expand"; // Change text to "expand"
+  } else {
+      cardCollapsible.classList.remove('collapsed');
+      cardToggle.textContent = "collapse"; // You can change this text as needed
+  }
+}
+// Call the function when the page loads
+window.addEventListener('load', toggleCollapsedClass);
+// Call the function when the window is resized
+window.addEventListener('resize', toggleCollapsedClass);
+
+
+
+
+
 // Bio card toggle-------------------------------------------
 document.getElementById("card-toggle").addEventListener("click", function() {
   const cardContainer = document.getElementById("card-collapsible");

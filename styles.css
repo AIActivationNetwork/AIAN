@@ -243,7 +243,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    max-height: 500px;
+    max-height: 600px;
     bottom: 45px;
     left:  45px;
     z-index: 2000;
@@ -253,7 +253,7 @@ footer {
 }
 
 #card-collapsible {
-    max-height: 400px;
+    max-height: 500px;
     transition: max-height 0.3s ease;
 }
 #card-collapsible.collapsed {
@@ -276,6 +276,8 @@ footer {
     margin-top: 0;
     border-top-left-radius: 0;
 }
+
+
 @media (max-width: 900px) {
     #network-container {
         justify-content: center;
@@ -298,16 +300,26 @@ footer {
         position: relative !important;
         bottom: 90px !important;
         right: 0 !important;
-        gap: 3px !important;
+        gap: 0 !important;
+        border: #01206a 2px solid;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(5px) !important;
+        z-index: 2000 !important;
     }
     .legend-container {
         height: 60px;
         gap: 0 !important;
+        background-color: transparent !important;
+        backdrop-filter: none !important;
+        box-shadow: none !important;
     }
     #cardName {
         width: 180px !important;
         padding-left: 10px !important;
         padding-right: 10px !important;
+        /* border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0; */
     }
     #node-name {
         padding-top: 10px;
@@ -324,6 +336,10 @@ footer {
     #cardInfo {
         width: 200px;
         height: 250px;
+        margin-top: 3px;
+        /* border-top-right-radius: 0;
+        border-top-left-radius: 0; */
+        /* border-top: none; */
     }
     .info-container {
         height: 195px !important;
@@ -340,6 +356,11 @@ footer {
         margin-right: 10px !important;
         margin-bottom: 5px !important;
     }
+    #panelContentConnectionsBadges {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
     .node-text-container p {
         font-size: 0.8rem;
     }
