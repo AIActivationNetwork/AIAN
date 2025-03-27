@@ -697,8 +697,8 @@ node.append("text")
     document.getElementById("node-school").innerText = d.school;
     document.getElementById("node-org").innerText = d.org;
     document.getElementById("node-aiorg").innerText = d.aiorg;
-    document.getElementById("node-phone").innerText = d.phone;
-    document.getElementById("node-office").innerText = d.office;
+    // document.getElementById("node-phone").innerText = d.phone;
+    // document.getElementById("node-office").innerText = d.office;
 
     // Dynamically create and insert website link
     const websiteLink = document.createElement('a');
@@ -709,11 +709,11 @@ node.append("text")
     document.getElementById("node-website").appendChild(websiteLink);
 
     // Dynamically create and insert email link
-    const emailLink = document.createElement('a');
-    emailLink.href = `mailto:${d.email}`;
-    emailLink.innerText = d.email;
-    document.getElementById("node-email").innerHTML = ''; // Clear existing content
-    document.getElementById("node-email").appendChild(emailLink);
+    // const emailLink = document.createElement('a');
+    // emailLink.href = `mailto:${d.email}`;
+    // emailLink.innerText = d.email;
+    // document.getElementById("node-email").innerHTML = ''; // Clear existing content
+    // document.getElementById("node-email").appendChild(emailLink);
 
     // Dynamically create and insert LinkedIn link
     if (d.linkedin) {
