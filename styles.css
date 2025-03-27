@@ -77,7 +77,7 @@ nav {
 }
 @media (max-width: 900px) {
     nav {
-        width: 400px;
+        width: 210px;
     }
 }
 nav ul {
@@ -525,7 +525,7 @@ footer {
     }
     .legend-box {
         padding-top: 2px !important;
-        width: 160px !important;
+        width: 155px !important;
     }
     .legend {
         font-size: 0.75rem !important;
