@@ -315,7 +315,7 @@ footer {
         box-shadow: none !important;
     }
     #cardName {
-        width: 180px !important;
+        width: 170px !important;
         padding-left: 10px !important;
         padding-right: 10px !important;
         /* border-bottom-right-radius: 0;
@@ -333,8 +333,11 @@ footer {
         margin-top: 7px !important;
         margin-bottom: 8px !important;
     }
+    .tag {
+        font-size: 0.6rem !important;
+    }
     #cardInfo {
-        width: 200px;
+        width: 190px;
         height: 250px;
         margin-top: 3px;
         /* border-top-right-radius: 0;
@@ -349,7 +352,7 @@ footer {
     }
     .infoTitle {
         padding-left: 13px !important;
-        font-size: 0.8rem !important;
+        font-size: 0.75rem !important;
     }
     .panelContent {
         margin-left: 10px !important;
@@ -368,7 +371,7 @@ footer {
         font-size: 0.8rem;
     }
     .tab {
-        font-size: 0.8rem !important;
+        font-size: 0.75rem !important;
         font-weight: 600;
         color: #01206a;
         cursor: pointer;
@@ -515,7 +518,7 @@ footer {
     .legend-container {
         bottom: 90px !important;
         right: 45px;
-        border: 0px solid #01206a;
+        border: none;
         border-radius: 10px;
         padding-top: 5px;
         padding-bottom: 5px;
@@ -525,10 +528,12 @@ footer {
     }
     .legend-box {
         padding-top: 2px !important;
-        width: 155px !important;
+        padding-left: 15px !important; 
+        padding-right: 15px !important; 
+        width: 145px !important;
     }
     .legend {
-        font-size: 0.75rem !important;
+        font-size: 0.7rem !important;
         left: 50px !important;
     }
     .legend-node {
