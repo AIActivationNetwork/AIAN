@@ -315,7 +315,7 @@ footer {
         box-shadow: none !important;
     }
     #cardName {
-        width: 170px !important;
+        width: 163px !important;
         padding-left: 10px !important;
         padding-right: 10px !important;
         /* border-bottom-right-radius: 0;
@@ -337,7 +337,7 @@ footer {
         font-size: 0.6rem !important;
     }
     #cardInfo {
-        width: 190px;
+        width: 183px;
         height: 250px;
         margin-top: 3px;
         /* border-top-right-radius: 0;
@@ -346,18 +346,20 @@ footer {
     }
     .info-container {
         height: 195px !important;
+        margin-right: 10px !important;
     }
     #containerBio {
         margin-right: 10px !important;
     }
     .infoTitle {
         padding-left: 13px !important;
-        font-size: 0.75rem !important;
+        font-size: 0.7rem !important;
     }
     .panelContent {
         margin-left: 10px !important;
         margin-right: 10px !important;
         margin-bottom: 5px !important;
+        font-size: 0.65rem !important; 
     }
     #panelContentConnectionsBadges {
         display: flex;
@@ -368,10 +370,10 @@ footer {
         font-size: 0.8rem;
     }
     .node-text {
-        font-size: 0.8rem;
+        font-size: 0.65rem !important; 
     }
     .tab {
-        font-size: 0.75rem !important;
+        font-size: 0.7rem !important;
         font-weight: 600;
         color: #01206a;
         cursor: pointer;
@@ -559,7 +561,13 @@ footer {
     }
     .toggle-input:checked + .toggle-slider::before {
         transform: translateX(12px) !important;
-    }    
+    }
+
+
+
+    #panelContentConnections {
+        line-height: 1rem !important;
+    }
 }
 .legend-container-shell {
     position: absolute;
