@@ -294,6 +294,7 @@ footer {
         position: relative !important;
         bottom: 90px;
         left: 0;
+        overflow-x: hidden;
     }
     #card-container.collapsed {
         max-height: 106px;
