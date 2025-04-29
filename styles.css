@@ -237,6 +237,9 @@ footer {
     display: flex;
     flex-direction: row;
     pointer-events: none;
+    /* background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    border-top: #d3d3d3 1px solid; */
 }
 #card-container {
     position: absolute;
@@ -288,7 +291,7 @@ footer {
         height: 300px;
         bottom: 0;
         gap: 10px;
-        pointer-events: auto;
+        pointer-events: none;
     }
     #card-container {
         position: relative !important;
@@ -797,9 +800,10 @@ button {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 3px;
 }
 .node-text {
+    display: flex;
+    align-items: center;
     font-weight: 300;
     overflow-wrap: break-word !important;
     width: 100%;
@@ -812,7 +816,9 @@ button {
 .node-row {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
+
 #cardName {
     width: 250px;
     padding-left: 25px;

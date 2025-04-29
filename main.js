@@ -164,7 +164,7 @@ tabs.forEach(tab => {
 let csvData = [];
 
 // Load the CSV file
-fetch('csvs/20250111-main.csv') // Replace with the actual path to your CSV file
+fetch('csvs/20250429-main.csv') // Replace with the actual path to your CSV file
     .then(response => response.text())
     .then(data => {
         csvData = Papa.parse(data, { header: true }).data;
@@ -176,7 +176,7 @@ function performSearch() {
     const query = document.getElementById('searchBar').value.toLowerCase();
     
     // List the columns we want to search
-    const searchColumns = ['Name', 'Title', 'School', 'Org', 'Project', 'Tool', 'Award'];
+    const searchColumns = ['First Name', 'Last Name', 'Your Title', 'School', 'Organization', 'AI-Related Projects'];
 
     const results = csvData.filter(row =>
         searchColumns.some(column =>
@@ -295,25 +295,28 @@ guide.addEventListener('mouseleave', () => {
 
 // Load CSV data and render the graph
 Promise.all([
-  d3.csv("csvs/20250111-main.csv"),        // Node data
-  d3.csv("csvs/20250111-connections.csv") // Link data
+  d3.csv("csvs/20250429-main.csv"),        // Node data
+  d3.csv("csvs/20250429-connections.csv") // Link data
 ]).then(([nodesData, linksData]) => {
   // Map nodesData to the required format
   const nodes = nodesData.map(d => ({
     id: d.ID,
-    name: d.Name,
-    role: d.Role,
-    title: d.Title,
+    name: `${d["First Name"]} ${d["Last Name"]}`,
+    role: d["Your Role"],
+    title: d["Your Title"],
     school: d.School,
-    org: d.Org,
-    aiorg: d.AiOrg,
+    org: d["Organization/Company/Lab"],
+    aiorg: d["AI Affiliations/Organizations"],
     website: d.Website,
-    phone: d.Phone,
-    email: d.Email,
-    office: d.Office,
+    email: d["Email Address"],
+    office: d["Office Address"],
     event: d.Event,
     linkedin: d.LinkedIn,
     bluesky: d.Bluesky,
+    orcid: d.ORCID,
+    researchgate: d["Research Gate"],
+    googlescholar: d["Google Scholar"],
+    github: d.GitHub,
   }));
 
   // Map linksData to the required format
@@ -384,13 +387,19 @@ Promise.all([
   // Create a group to hold all elements
   const g = svg.append("g");
 
+  const linkedNodeIds = new Set(links.flatMap(l => [l.source, l.target]));
+  const isIsolated = d => !linkedNodeIds.has(d.id);
+
+  
+
   // Create force simulation
   const simulation = d3.forceSimulation(nodes)
     .force("link", d3.forceLink(links).id(d => d.id).distance(175))
-    .force("charge", d3.forceManyBody().strength(-1500))
+    .force("charge", d3.forceManyBody().strength(-350))
     .force("center", d3.forceCenter(width / 2, height / 2));
 
-
+    simulation.force("radial", d3.forceRadial(250, width / 2, height / 2)
+    .strength(d => isIsolated(d) ? 0.9 : 0)); // tweak strength as needed
 // Draw links
 const link = g.selectAll(".link")
   .data(links)
@@ -708,29 +717,6 @@ node.append("text")
     document.getElementById("node-website").innerHTML = ''; // Clear existing content
     document.getElementById("node-website").appendChild(websiteLink);
 
-    // Dynamically create and insert email link
-    // const emailLink = document.createElement('a');
-    // emailLink.href = `mailto:${d.email}`;
-    // emailLink.innerText = d.email;
-    // document.getElementById("node-email").innerHTML = ''; // Clear existing content
-    // document.getElementById("node-email").appendChild(emailLink);
-
-    // Dynamically create and insert LinkedIn link
-    if (d.linkedin) {
-      const linkedinLink = document.createElement('a');
-      linkedinLink.href = d.linkedin;
-      linkedinLink.target = '_blank';
-      const linkedinIcon = document.createElement('img');
-      linkedinIcon.classList.add('node-icon');
-      linkedinIcon.src = 'svgs/icon_linkedin.svg';
-      linkedinIcon.alt = 'LinkedIn';
-      linkedinLink.appendChild(linkedinIcon);
-      const linkedinText = document.createElement('span');
-      linkedinText.innerText = 'LinkedIn';
-      linkedinLink.appendChild(linkedinText);
-      document.getElementById("node-linkedin").innerHTML = ''; // Clear existing content
-      document.getElementById("node-linkedin").appendChild(linkedinLink);
-    }
 
     // Dynamically create and insert LinkedIn link
     if (d.linkedin) {
@@ -768,6 +754,84 @@ node.append("text")
       document.getElementById("node-bluesky").appendChild(blueskyLink);
     } else {
       document.getElementById("node-bluesky").innerHTML = ''; // Clear Bluesky if no value
+    }
+
+
+    if (d.orcid) {
+      const orcidLink = document.createElement('a');
+      orcidLink.href = `https://orcid.org/${d.orcid}`;
+      orcidLink.target = '_blank';
+    
+      const orcidIcon = document.createElement('img');
+      orcidIcon.classList.add('node-icon');
+      orcidIcon.src = 'svgs/icon_orcid.svg';
+      orcidIcon.alt = 'ORCID';
+      orcidLink.appendChild(orcidIcon);
+    
+      const orcidText = document.createElement('span');
+      orcidText.innerText = 'ORCID';
+      orcidLink.appendChild(orcidText);
+    
+      const orcidContainer = document.getElementById("node-orcid");
+      orcidContainer.innerHTML = ''; // Clear existing content
+      orcidContainer.appendChild(orcidLink);
+    } else {
+      document.getElementById("node-orcid").innerHTML = '';
+    }
+    
+
+    if (d.researchgate) {
+      const researchgateLink = document.createElement('a');
+      researchgateLink.href = d.researchgate;
+      researchgateLink.target = '_blank';
+      const researchgateIcon = document.createElement('img');
+      researchgateIcon.classList.add('node-icon');
+      researchgateIcon.src = 'svgs/icon_researchgate.svg';
+      researchgateIcon.alt = 'ResearchGate';
+      researchgateLink.appendChild(researchgateIcon);
+      const researchgateText = document.createElement('span');
+      researchgateText.innerText = 'ResearchGate';
+      researchgateLink.appendChild(researchgateText);
+      document.getElementById("node-researchgate").innerHTML = ''; // Clear existing content
+      document.getElementById("node-researchgate").appendChild(researchgateLink);
+    } else {
+      document.getElementById("node-researchgate").innerHTML = '';
+    }
+
+    if (d.googlescholar) {
+      const googlescholarLink = document.createElement('a');
+      googlescholarLink.href = d.googlescholar;
+      googlescholarLink.target = '_blank';
+      const googlescholarIcon = document.createElement('img');
+      googlescholarIcon.classList.add('node-icon');
+      googlescholarIcon.src = 'svgs/icon_googlescholar.svg';
+      googlescholarIcon.alt = 'Google Scholar';
+      googlescholarLink.appendChild(googlescholarIcon);
+      const googlescholarText = document.createElement('span');
+      googlescholarText.innerText = 'Google Scholar';
+      googlescholarLink.appendChild(googlescholarText);
+      document.getElementById("node-googlescholar").innerHTML = ''; // Clear existing content
+      document.getElementById("node-googlescholar").appendChild(googlescholarLink);
+    } else {
+      document.getElementById("node-googlescholar").innerHTML = '';
+    }
+
+    if (d.github) {
+      const githubLink = document.createElement('a');
+      githubLink.href = d.github;
+      githubLink.target = '_blank';
+      const githubIcon = document.createElement('img');
+      githubIcon.classList.add('node-icon');
+      githubIcon.src = 'svgs/icon_github.svg';
+      githubIcon.alt = 'GitHub';
+      githubLink.appendChild(githubIcon);
+      const githubText = document.createElement('span');
+      githubText.innerText = 'GitHub';
+      githubLink.appendChild(githubText);
+      document.getElementById("node-github").innerHTML = ''; // Clear existing content
+      document.getElementById("node-github").appendChild(githubLink);
+    } else {
+      document.getElementById("node-github").innerHTML = '';
     }
 
     // Update event content with fallback if empty
