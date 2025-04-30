@@ -437,7 +437,7 @@ node.append("circle")
     if (d.role === "Alumnus") return "#782483"; // Purple for Alumnus
   });
 
-node.append("text")
+  node.append("text")
   .attr("text-anchor", "middle")
   .style("fill", "#fff")
   .style("font-size", "18px")
@@ -445,15 +445,20 @@ node.append("text")
   .style("font-family", "'Roboto Condensed', sans-serif")
   .style("font-weight", "bold")
   .html(d => {
-    // Split the name by spaces into an array of name parts
     const nameParts = d.name.split(" ");
+    const totalParts = nameParts.length;
 
-    // Map over the name parts and create a <tspan> for each part
     return nameParts.map((part, index) => {
-      // For each name part, set dy for line spacing
-      return `<tspan x="0" dy="${index === 0 ? 0 : 1.0}em">${part}</tspan>`;
-    }).join("");  // Join all <tspan> elements into a single string
+      // Adjust the first tspan's dy based on how many parts there are
+      let dy = "1em"; // default line spacing
+      if (index === 0) {
+        dy = totalParts === 3 ? "-0.6em" :
+             totalParts === 2 ? "-0.05em" : "0";
+      }
+      return `<tspan x="0" dy="${dy}">${part}</tspan>`;
+    }).join("");
   });
+
 
 
 
